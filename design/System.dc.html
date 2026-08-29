@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #F2EEE6;
+      color: #14110D;
+      font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #14110D; text-decoration: none; }
+    a:hover { color: #B4531E; }
+    .disp {
+      font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+      font-weight: 400; letter-spacing: -0.014em; line-height: 1.05; margin: 0;
+    }
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums; font-feature-settings: "zero";
+    }
+    .lbl {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.4;
+    }
+    .sec { border-top: 1px solid rgba(20,17,13,0.14); padding-top: 16px; }
+    .sw { width: 100%; height: 62px; border-radius: 2px; }
+    .sw-n { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; margin-top: 8px; color: #14110D; }
+    .sw-h { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: rgba(20,17,13,0.45); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 46px; padding: 0 22px; background: #14110D; color: #F2EEE6;
+      font-size: 14.5px; font-weight: 500; border-radius: 2px; border: 0; cursor: pointer;
+    }
+    .field {
+      height: 46px; padding: 0 14px; background: #FAF8F4;
+      border: 1px solid rgba(20,17,13,0.22); border-radius: 2px;
+      color: #14110D; font-size: 14.5px; width: 200px;
+      font-family: "Public Sans", system-ui, sans-serif; outline: none;
+    }
+    .field::placeholder { color: rgba(20,17,13,0.35); }
+    .no { font-size: 14px; color: rgba(20,17,13,0.66); line-height: 1.75; }
+  </style>
+</helmet>
+
+<div style="padding: 44px 46px;">
+
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span class="disp" style="font-size: 25px;">Cero</span>
+    <span style="display: block; width: 22px; height: 10px; background: #14110D; border-radius: 1px;"></span>
+    <span class="lbl" style="color: rgba(20,17,13,0.40); margin-left: 12px;">Ledger, with redactions &nbsp;&mdash;&nbsp; system sheet</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 56px; margin-top: 36px;">
+
+    <!-- PALETTE -->
+    <div>
+      <div class="sec"><span class="lbl" style="color: rgba(20,17,13,0.40);">Palette &mdash; ground &amp; ink</span></div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 16px;">
+        <div><div class="sw" style="background: #F2EEE6; border: 1px solid rgba(20,17,13,0.16);"></div><div class="sw-n">paper</div><div class="sw-h">#F2EEE6</div></div>
+        <div><div class="sw" style="background: #E8E3D9; border: 1px solid rgba(20,17,13,0.16);"></div><div class="sw-n">paper-2</div><div class="sw-h">#E8E3D9</div></div>
+        <div><div class="sw" style="background: #14110D;"></div><div class="sw-n">ink</div><div class="sw-h">#14110D</div></div>
+        <div><div class="sw" style="background: #16181A;"></div><div class="sw-n">pane</div><div class="sw-h">#16181A</div></div>
+      </div>
+
+      <div class="sec" style="margin-top: 30px;"><span class="lbl" style="color: rgba(20,17,13,0.40);">Palette &mdash; state, the only chroma</span></div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 16px;">
+        <div><div class="sw" style="background: #3D6B5A;"></div><div class="sw-n">quiet</div><div class="sw-h">#3D6B5A</div></div>
+        <div><div class="sw" style="background: #B4531E;"></div><div class="sw-n">loud</div><div class="sw-h">#B4531E</div></div>
+        <div><div class="sw" style="background: #5E9C84;"></div><div class="sw-n">quiet-lit</div><div class="sw-h">#5E9C84</div></div>
+        <div><div class="sw" style="background: #D9793C;"></div><div class="sw-n">loud-lit</div><div class="sw-h">#D9793C</div></div>
+      </div>
+      <div class="no" style="margin-top: 14px;">
+        Two hues, never decorative. <span class="mono" style="font-size: 13px;">quiet</span> = low exit
+        uniqueness, the routed path. <span class="mono" style="font-size: 13px;">loud</span> = the
+        fingerprinting path, a policy breach. The <span class="mono" style="font-size: 13px;">-lit</span>
+        pair is the same meaning on the dark pane. There is no third accent.
+      </div>
+    </div>
+
+    <!-- TYPE -->
+    <div>
+      <div class="sec"><span class="lbl" style="color: rgba(20,17,13,0.40);">Type &mdash; Newsreader / Public Sans / IBM Plex Mono</span></div>
+      <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 78px; flex-shrink: 0;">display 66</span>
+          <span class="disp" style="font-size: 40px;">The ends are not.</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 78px; flex-shrink: 0;">display 40</span>
+          <span class="disp" style="font-size: 27px;">Section heading</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 78px; flex-shrink: 0;">body 16.5</span>
+          <span style="font-size: 16.5px; color: rgba(20,17,13,0.66);">Reading copy, 66% ink, max 62ch</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 78px; flex-shrink: 0;">mono 12.5</span>
+          <span class="mono" style="font-size: 12.5px;">184,200 USDCx &nbsp; 09:00&ndash;17:00 &nbsp; al1q&hellip;4f8d</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 78px; flex-shrink: 0;">label 11</span>
+          <span class="lbl" style="color: rgba(20,17,13,0.66);">Anonymity set at exit window</span>
+        </div>
+      </div>
+      <div class="no" style="margin-top: 16px;">
+        Mono appears only where a machine produced the value &mdash; scores, amounts, keys,
+        timestamps. Tabular figures always on, so columns line up.
+      </div>
+    </div>
+
+    <!-- REDACTION MOTIF -->
+    <div>
+      <div class="sec"><span class="lbl" style="color: rgba(20,17,13,0.40);">The redaction motif</span></div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px;">
+        <div style="border: 1px solid rgba(20,17,13,0.16); border-radius: 2px; padding: 16px;">
+          <div class="mono" style="font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(20,17,13,0.40);">Approver</div>
+          <span style="display: block; height: 15px; width: 72%; border-radius: 1px; background: #14110D; margin-top: 9px;"></span>
+          <div class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.45); margin-top: 14px;">on paper &rarr; solid ink</div>
+        </div>
+        <div style="background: #16181A; border-radius: 2px; padding: 16px;">
+          <div class="mono" style="font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,238,230,0.46);">Approver</div>
+          <span style="display: block; height: 15px; width: 72%; border-radius: 1px; background: #0A0B0C; margin-top: 9px;"></span>
+          <div class="mono" style="font-size: 10.5px; color: rgba(242,238,230,0.48); margin-top: 14px;">in a pane &rarr; a void</div>
+        </div>
+      </div>
+      <div class="no" style="margin-top: 14px;">
+        Never blur, never lowered opacity, never a lock glyph &mdash; the field is not obscured, it
+        was never decrypted. In the build the redacted value must be absent from the DOM, not
+        covered by it.
+      </div>
+    </div>
+
+    <!-- CONTROLS + RULES -->
+    <div>
+      <div class="sec"><span class="lbl" style="color: rgba(20,17,13,0.40);">Controls</span></div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap;">
+        <button class="btn" type="button">Request a key</button>
+        <button class="btn" type="button" style="background: #362E26;">Hover</button>
+        <input class="field" type="email" placeholder="you@treasury.co">
+        <input class="field" type="email" style="border-color: #14110D;" value="controller@acme.co">
+      </div>
+
+      <div class="sec" style="margin-top: 30px;"><span class="lbl" style="color: rgba(20,17,13,0.40);">Rules, radii, grid</span></div>
+      <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 11px;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 86px; flex-shrink: 0;">rule</span>
+          <span style="flex-grow: 1; height: 1px; background: rgba(20,17,13,0.14);"></span>
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.45);">1px &middot; 14%</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 86px; flex-shrink: 0;">rule-soft</span>
+          <span style="flex-grow: 1; height: 1px; background: rgba(20,17,13,0.07);"></span>
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.45);">1px &middot; 7%</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 4px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 86px; flex-shrink: 0;">radius</span>
+          <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.66);">2px controls &middot; 3px panes &middot; nothing rounder</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 86px; flex-shrink: 0;">shadow</span>
+          <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.66);">none &mdash; separation is rules and ground</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span class="mono" style="font-size: 10.5px; color: rgba(20,17,13,0.40); width: 86px; flex-shrink: 0;">grid</span>
+          <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.66);">1200 wrap &middot; 12 col &middot; left-aligned, asymmetric</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BANNED -->
+  <div class="sec" style="margin-top: 40px;">
+    <span class="lbl" style="color: rgba(20,17,13,0.40);">Out of bounds</span>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 40px; margin-top: 16px;">
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; gradients, mesh, glow</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; glassmorphism, backdrop-blur</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; bento grids of icon cards</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; gradient text, emoji headings</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; fake logo strips, testimonials</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; counters ticking to nowhere</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; centered max-w-3xl columns</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; decorative charts</span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.60);">&mdash; an FAQ nobody asked for</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1000,"height":1040}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #F2EEE6;
+      color: #14110D;
+      font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #14110D; text-decoration: none; }
+    a:hover { color: #B4531E; }
+    .disp {
+      font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+      font-weight: 400; letter-spacing: -0.014em; line-height: 1.05; margin: 0;
+    }
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums; font-feature-settings: "zero";
+    }
+    .lbl {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.4;
+    }
+    .cell-lbl {
+      font-family: "IBM Plex Mono", monospace; font-size: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,238,230,0.46);
+    }
+    .cell-val {
+      font-family: "IBM Plex Mono", monospace; font-size: 16px;
+      font-variant-numeric: tabular-nums; color: rgba(242,238,230,0.90); margin-top: 5px;
+    }
+    .note-n {
+      font-family: "IBM Plex Mono", monospace; font-size: 10px;
+      width: 19px; height: 19px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(20,17,13,0.30); color: rgba(20,17,13,0.60);
+      display: flex; align-items: center; justify-content: center;
+    }
+  </style>
+</helmet>
+
+<div style="padding: 44px 46px;">
+
+  <div class="lbl" style="color: rgba(20,17,13,0.40); margin-bottom: 30px;">
+    Hero instrument &nbsp;&mdash;&nbsp; exit-score widget
+  </div>
+
+  <div style="display: grid; grid-template-columns: 556px 1fr; gap: 52px; align-items: start;">
+
+    <!-- ============ WIDGET ============ -->
+    <div style="background: #16181A; border-radius: 3px; padding: 24px 24px 22px;">
+
+      <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 15px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+        <span class="lbl" style="font-size: 10.5px; color: rgba(242,238,230,0.92);">Pay-run 2026-W35</span>
+        <span class="lbl" style="font-size: 10.5px; color: rgba(242,238,230,0.44);">Example run</span>
+      </div>
+
+      <div style="display: flex; gap: 34px; padding: 18px 0 22px;">
+        <div>
+          <div class="cell-lbl">Payments</div>
+          <div class="cell-val">41</div>
+        </div>
+        <div>
+          <div class="cell-lbl">Value</div>
+          <div class="cell-val">184,200 USDCx</div>
+        </div>
+        <div>
+          <div class="cell-lbl">Exit window</div>
+          <div class="cell-val">09:00&ndash;17:00</div>
+        </div>
+      </div>
+
+      <div class="cell-lbl">Anonymity set at exit window</div>
+      <div style="display: flex; align-items: flex-end; gap: 3px; height: 34px; margin-top: 11px;">
+        <sc-for list="{{ticks}}" as="tick" hint-placeholder-count="72">
+          <div style="{{tick.s}}"></div>
+        </sc-for>
+      </div>
+      <div class="mono" style="font-size: 11px; color: rgba(242,238,230,0.50); margin-top: 9px;">{{setLine}}</div>
+
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: 24px; padding-top: 19px; border-top: 1px solid rgba(242,238,230,0.12);">
+        <div>
+          <div class="cell-lbl">Exit uniqueness</div>
+          <div class="mono" style="{{scoreStyle}}">{{score}}</div>
+        </div>
+        <div class="lbl" style="{{phaseStyle}}">{{phaseLabel}}</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 18px;">
+        <div style="{{a.row}}">
+          <div style="display: flex; align-items: center; gap: 11px;">
+            <span style="{{a.mark}}"></span>
+            <span class="mono" style="font-size: 12px; color: rgba(242,238,230,0.86);">Exit A &middot; single burn &middot; 14:02 UTC</span>
+          </div>
+          <span class="mono" style="{{a.num}}">87</span>
+        </div>
+        <div style="{{b.row}}">
+          <div style="display: flex; align-items: center; gap: 11px;">
+            <span style="{{b.mark}}"></span>
+            <span class="mono" style="font-size: 12px; color: rgba(242,238,230,0.86);">Exit B &middot; 6 tranches &middot; held to window</span>
+          </div>
+          <span class="mono" style="{{b.num}}">09</span>
+        </div>
+      </div>
+
+      <div class="mono" style="{{verdictStyle}}">{{verdictText}}</div>
+    </div>
+
+    <!-- ============ ANNOTATIONS ============ -->
+    <div style="display: flex; flex-direction: column; gap: 26px; padding-top: 4px;">
+
+      <div style="display: flex; gap: 13px; align-items: flex-start;">
+        <span class="note-n">1</span>
+        <div>
+          <div class="lbl" style="font-size: 10px; color: #14110D;">The set, not a gauge</div>
+          <div style="font-size: 14.5px; color: rgba(20,17,13,0.66); margin-top: 6px;">
+            Each tick is a real exit in the same window. The tall ones are ours. A thin set is
+            what makes a run identifiable &mdash; so the set is what we draw.
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 13px; align-items: flex-start;">
+        <span class="note-n">2</span>
+        <div>
+          <div class="lbl" style="font-size: 10px; color: #14110D;">One number that means something</div>
+          <div style="font-size: 14.5px; color: rgba(20,17,13,0.66); margin-top: 6px;">
+            Exit uniqueness, 0&ndash;100. It moves because the routing changed, never as decoration.
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 13px; align-items: flex-start;">
+        <span class="note-n">3</span>
+        <div>
+          <div class="lbl" style="font-size: 10px; color: #14110D;">Two candidates, both real</div>
+          <div style="font-size: 14.5px; color: rgba(20,17,13,0.66); margin-top: 6px;">
+            Burnt orange is the loud path, green the quiet one. Those two colours are the only
+            chroma on the page and they always carry a state.
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 13px; align-items: flex-start;">
+        <span class="note-n">4</span>
+        <div>
+          <div class="lbl" style="font-size: 10px; color: #14110D;">Reduced motion</div>
+          <div style="font-size: 14.5px; color: rgba(20,17,13,0.66); margin-top: 6px;">
+            With <span class="mono" style="font-size: 13px;">prefers-reduced-motion</span> the loop
+            never starts &mdash; the widget renders the routed end state and stays there.
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(20,17,13,0.14); padding-top: 16px; margin-top: 2px;">
+        <div class="mono" style="font-size: 11.5px; color: rgba(20,17,13,0.45); line-height: 1.9;">
+          cycle 7.4s &middot; 12 steps<br>
+          css transitions only &middot; no canvas, no webgl
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1000,"height":720}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { t: 0 };
+  }
+
+  componentDidMount() {
+    var reduce = false;
+    try {
+      reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+    if (reduce) { this.setState({ t: 9 }); return; }
+    var self = this;
+    this.timer = setInterval(function () {
+      self.setState(function (s) { return { t: (s.t + 1) % 12 }; });
+    }, 620);
+  }
+
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+  }
+
+  renderVals() {
+    var t = this.state.t;
+    var PAPER = '#F2EEE6';
+    var QUIET = '#5E9C84';
+    var LOUD  = '#D9793C';
+
+    var frac = t < 1 ? 0.28 : (t < 2 ? 0.66 : 1);
+    var n = 72;
+    var ticks = [];
+    for (var i = 0; i < n; i++) {
+      var on = i < Math.round(n * frac);
+      var mine = (i % 9 === 4);
+      var col;
+      if (!on) { col = 'rgba(242,238,230,0.05)'; }
+      else if (mine) { col = (t >= 8 ? QUIET : (t >= 3 ? LOUD : 'rgba(242,238,230,0.55)')); }
+      else { col = 'rgba(242,238,230,0.15)'; }
+      ticks.push({
+        s: 'width: 3px; border-radius: 1px; flex-shrink: 0; height: ' + (mine ? 32 : 19) + 'px;'
+         + ' background: ' + col + '; transition: background 300ms linear;'
+      });
+    }
+
+    var scores = ['––','––','––','87','87','87','61','34','09','09','09','09'];
+    var scoreColor = t < 3 ? 'rgba(242,238,230,0.26)' : (t >= 8 ? QUIET : (t >= 7 ? PAPER : LOUD));
+
+    var phases = [
+      'Scanning exit window','Scanning exit window','Set resolved',
+      'Scoring candidates','Scoring candidates','Scoring candidates',
+      'Routing','Routing',
+      'Routed — quiet path','Routed — quiet path','Routed — quiet path','Routed — quiet path'
+    ];
+    var phaseColor = t >= 8 ? QUIET : (t >= 3 ? LOUD : 'rgba(242,238,230,0.46)');
+
+    var rowBase = 'display: flex; align-items: center; justify-content: space-between;'
+      + ' padding: 12px 14px; border-radius: 2px;'
+      + ' transition: background 300ms linear, border-color 300ms linear;';
+    var idle     = ' border: 1px solid rgba(242,238,230,0.10); background: transparent;';
+    var selLoud  = ' border: 1px solid rgba(217,121,60,0.55); background: rgba(217,121,60,0.10);';
+    var selQuiet = ' border: 1px solid rgba(94,156,132,0.60); background: rgba(94,156,132,0.10);';
+
+    var aOn = (t >= 3 && t <= 5);
+    var bOn = (t >= 6);
+    var markBase = 'display: block; width: 8px; height: 8px; border-radius: 1px; flex-shrink: 0; transition: background 300ms linear;';
+    var numBase = 'font-size: 13px; transition: color 300ms linear;';
+
+    return {
+      ticks: ticks,
+      setLine: t < 2 ? '… resolving exits in window' : '1,284 exits in window · 41 ours',
+      score: scores[t],
+      scoreStyle: 'font-size: 54px; line-height: 1; letter-spacing: -0.035em; margin-top: 8px;'
+        + ' color: ' + scoreColor + '; transition: color 300ms linear;',
+      phaseLabel: phases[t],
+      phaseStyle: 'font-size: 10.5px; color: ' + phaseColor + '; transition: color 300ms linear;',
+      a: {
+        row: rowBase + (aOn ? selLoud : idle),
+        mark: markBase + ' background: ' + (aOn ? LOUD : 'rgba(242,238,230,0.22)') + ';',
+        num: numBase + ' color: ' + (aOn ? LOUD : 'rgba(242,238,230,0.46)') + ';'
+      },
+      b: {
+        row: rowBase + (bOn ? selQuiet : idle),
+        mark: markBase + ' background: ' + (bOn ? QUIET : 'rgba(242,238,230,0.22)') + ';',
+        num: numBase + ' color: ' + (bOn ? QUIET : 'rgba(242,238,230,0.46)') + ';'
+      },
+      verdictText: 'Routed · Exit B · 6 tranches held to 17:00 · uniqueness 09',
+      verdictStyle: 'font-size: 11.5px; margin-top: 18px; padding-top: 15px;'
+        + ' border-top: 1px solid rgba(242,238,230,0.12); color: ' + QUIET + ';'
+        + ' opacity: ' + (t >= 8 ? '1' : '0') + '; transition: opacity 340ms ease;'
+    };
+  }
+}
+</script>
+</body>
+</html>

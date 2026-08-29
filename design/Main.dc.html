@@ -1,0 +1,545 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      --paper: #F2EEE6;
+      --paper-2: #E8E3D9;
+      --ink: #14110D;
+      --ink-2: rgba(20,17,13,0.66);
+      --ink-3: rgba(20,17,13,0.40);
+      --rule: rgba(20,17,13,0.14);
+      --rule-soft: rgba(20,17,13,0.07);
+      --pane: #16181A;
+      --quiet: #3D6B5A;
+      --loud: #B4531E;
+    }
+    body {
+      margin: 0;
+      background: #F2EEE6;
+      color: #14110D;
+      font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: #14110D; text-decoration: none; }
+    a:hover { color: #B4531E; }
+    .wrap { width: 1200px; margin: 0 auto; }
+    .disp {
+      font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.014em;
+      line-height: 1.05;
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "zero";
+    }
+    .lbl {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+    .body { color: rgba(20,17,13,0.66); text-wrap: pretty; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 46px; padding: 0 22px;
+      background: #14110D; color: #F2EEE6;
+      font-size: 14.5px; font-weight: 500; letter-spacing: 0.005em;
+      border-radius: 2px; border: 0; cursor: pointer;
+      transition: background 160ms ease;
+    }
+    .btn:hover { background: #362E26; color: #F2EEE6; }
+    .field {
+      height: 46px; padding: 0 14px;
+      background: #FAF8F4; border: 1px solid rgba(20,17,13,0.22);
+      border-radius: 2px; color: #14110D; font-size: 14.5px;
+      font-family: "Public Sans", system-ui, sans-serif;
+      outline: none;
+    }
+    .field::placeholder { color: rgba(20,17,13,0.35); }
+    .field:focus { border-color: #14110D; }
+    .cell-lbl {
+      font-family: "IBM Plex Mono", monospace; font-size: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(242,238,230,0.46);
+    }
+    .cell-val {
+      font-family: "IBM Plex Mono", monospace; font-size: 12.5px;
+      font-variant-numeric: tabular-nums; color: rgba(242,238,230,0.90);
+      margin-top: 5px;
+    }
+    .redact { display: block; height: 13px; border-radius: 1px; background: #0A0B0C; margin-top: 6px; }
+  </style>
+</helmet>
+
+<div style="background: #F2EEE6; padding-bottom: 0;">
+
+  <!-- ===================== NAV ===================== -->
+  <header style="border-bottom: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 78px;">
+      <div style="display: flex; align-items: center; gap: 9px;">
+        <span class="disp" style="font-size: 27px; letter-spacing: -0.02em;">Cero</span>
+        <span style="display: block; width: 24px; height: 10px; background: #14110D; border-radius: 1px;"></span>
+      </div>
+      <nav style="display: flex; align-items: center; gap: 34px;">
+        <a class="lbl" style="color: rgba(20,17,13,0.66);" href="#gap">The gap</a>
+        <a class="lbl" style="color: rgba(20,17,13,0.66);" href="#flow">How it works</a>
+        <a class="lbl" style="color: rgba(20,17,13,0.66);" href="#disclosure">Disclosure</a>
+        <a class="btn" style="height: 40px; padding: 0 18px; font-size: 14px;" href="#waitlist">Request a key</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="wrap" style="padding: 92px 0 100px;">
+    <div style="max-width: 780px;">
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">Private dollars on Aleo</div>
+      <h1 class="disp" style="font-size: 66px; margin-top: 26px;">
+        <span style="display: block;">The middle is private.</span>
+        <span style="display: block;">The ends are not.</span>
+      </h1>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 568px; gap: 68px; margin-top: 54px; align-items: start;">
+
+      <div>
+        <p class="body" style="font-size: 18.5px; line-height: 1.62; margin: 0; max-width: 480px;">
+          USDCx already hides the body of a payment. Cero handles the ends &mdash; scoring how
+          much a pay-run gives away at mint, burn and bridge exit, routing the quiet path, then
+          opening only the slice each reviewer is cleared for.
+        </p>
+
+        <div style="display: flex; gap: 10px; margin-top: 34px; max-width: 460px;">
+          <input class="field" style="flex-grow: 1;" type="email" placeholder="you@treasury.co">
+          <button class="btn" type="button">Request a key</button>
+        </div>
+
+        <div class="lbl" style="color: rgba(20,17,13,0.40); margin-top: 18px;">
+          Private beta &nbsp;&middot;&nbsp; Aleo mainnet &nbsp;&middot;&nbsp; Nothing on an explorer
+        </div>
+      </div>
+
+      <!-- ============ EXIT-SCORE WIDGET ============ -->
+      <div style="background: #16181A; border-radius: 3px; padding: 22px 22px 20px;">
+
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 15px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+          <span class="lbl" style="font-size: 10.5px; color: rgba(242,238,230,0.92);">Pay-run 2026-W35</span>
+          <span class="lbl" style="font-size: 10.5px; color: rgba(242,238,230,0.44);">Example run</span>
+        </div>
+
+        <div style="display: flex; gap: 34px; padding: 17px 0 21px;">
+          <div>
+            <div class="cell-lbl">Payments</div>
+            <div class="cell-val" style="font-size: 16px;">41</div>
+          </div>
+          <div>
+            <div class="cell-lbl">Value</div>
+            <div class="cell-val" style="font-size: 16px;">184,200 USDCx</div>
+          </div>
+          <div>
+            <div class="cell-lbl">Exit window</div>
+            <div class="cell-val" style="font-size: 16px;">09:00&ndash;17:00</div>
+          </div>
+        </div>
+
+        <div class="cell-lbl">Anonymity set at exit window</div>
+        <div style="display: flex; align-items: flex-end; gap: 3px; height: 32px; margin-top: 11px;">
+          <sc-for list="{{ticks}}" as="tick" hint-placeholder-count="72">
+            <div style="{{tick.s}}"></div>
+          </sc-for>
+        </div>
+        <div class="mono" style="font-size: 11px; color: rgba(242,238,230,0.50); margin-top: 9px;">{{setLine}}</div>
+
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(242,238,230,0.12);">
+          <div>
+            <div class="cell-lbl">Exit uniqueness</div>
+            <div class="mono" style="{{scoreStyle}}">{{score}}</div>
+          </div>
+          <div class="lbl" style="{{phaseStyle}}">{{phaseLabel}}</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 18px;">
+          <div style="{{a.row}}">
+            <div style="display: flex; align-items: center; gap: 11px;">
+              <span style="{{a.mark}}"></span>
+              <span class="mono" style="font-size: 12px; color: rgba(242,238,230,0.86);">Exit A &middot; single burn &middot; 14:02 UTC</span>
+            </div>
+            <span class="mono" style="{{a.num}}">87</span>
+          </div>
+          <div style="{{b.row}}">
+            <div style="display: flex; align-items: center; gap: 11px;">
+              <span style="{{b.mark}}"></span>
+              <span class="mono" style="font-size: 12px; color: rgba(242,238,230,0.86);">Exit B &middot; 6 tranches &middot; held to window</span>
+            </div>
+            <span class="mono" style="{{b.num}}">09</span>
+          </div>
+        </div>
+
+        <div class="mono" style="{{verdictStyle}}">{{verdictText}}</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== 01 · THE GAP ===================== -->
+  <section id="gap" style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="padding: 96px 0 100px; display: grid; grid-template-columns: 430px 1fr; gap: 90px; align-items: start;">
+
+      <div>
+        <div class="lbl" style="color: rgba(20,17,13,0.40);">01 &nbsp;&mdash;&nbsp; The gap</div>
+        <h2 class="disp" style="font-size: 40px; margin-top: 22px;">USDCx hides the middle. The ends still talk.</h2>
+        <p class="body" style="font-size: 16.5px; margin: 24px 0 0;">
+          A shielded transfer between two private accounts reveals nothing. But value has to enter
+          and leave. Every mint, every burn, every bridge exit lands on a public ledger carrying an
+          amount, a timestamp and a destination &mdash; and a pay-run that repeats every Friday is a
+          signature long before anyone touches the cryptography.
+        </p>
+      </div>
+
+      <div style="padding-top: 8px;">
+        <!-- lifecycle bar -->
+        <div style="display: grid; grid-template-columns: 150px 1fr 200px; gap: 14px; align-items: stretch;">
+          <div style="border: 1px solid #B4531E; border-radius: 2px; padding: 15px 14px; background: rgba(180,83,30,0.07);">
+            <div class="lbl" style="font-size: 10px; color: #B4531E;">Mint</div>
+            <div class="mono" style="font-size: 12.5px; margin-top: 7px; color: rgba(20,17,13,0.80);">public</div>
+          </div>
+          <div style="background: #14110D; border-radius: 2px; display: flex; align-items: center; justify-content: center;">
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.78);">Private transfers &nbsp;&middot;&nbsp; opaque</span>
+          </div>
+          <div style="border: 1px solid #B4531E; border-radius: 2px; padding: 15px 14px; background: rgba(180,83,30,0.07);">
+            <div class="lbl" style="font-size: 10px; color: #B4531E;">Burn / bridge exit</div>
+            <div class="mono" style="font-size: 12.5px; margin-top: 7px; color: rgba(20,17,13,0.80);">public</div>
+          </div>
+        </div>
+
+        <!-- leader lines -->
+        <div style="display: grid; grid-template-columns: 150px 1fr 200px; gap: 14px; height: 26px;">
+          <div style="border-left: 1px solid rgba(180,83,30,0.55); margin-left: 16px;"></div>
+          <div></div>
+          <div style="border-left: 1px solid rgba(180,83,30,0.55); margin-left: 16px;"></div>
+        </div>
+
+        <!-- annotations -->
+        <div style="display: grid; grid-template-columns: 150px 1fr 200px; gap: 14px; align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 7px; padding-left: 17px;">
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">amount in</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">wallet of record</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">timestamp</span>
+          </div>
+          <div style="display: flex; justify-content: center; padding-top: 2px;">
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.34);">&mdash;&nbsp; no amount, no graph, no memo &nbsp;&mdash;</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 7px; padding-left: 17px;">
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">amount out</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">settlement time</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">destination shape</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">run cadence</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(20,17,13,0.14); margin-top: 34px; padding-top: 18px;">
+          <span class="body" style="font-size: 15px;">
+            Three weeks of the same run and the two ends line up on amount and cadence. That
+            correlation is the leak &mdash; not the transfer in between.
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== 02 · THE FLOW ===================== -->
+  <section id="flow" style="border-top: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="padding: 92px 0 96px;">
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">02 &nbsp;&mdash;&nbsp; The flow</div>
+      <h2 class="disp" style="font-size: 40px; margin-top: 22px; max-width: 720px;">Cero sits on the flow, not beside it.</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 56px; border-top: 1px solid rgba(20,17,13,0.14);">
+
+        <div style="padding: 30px 40px 8px 0; border-right: 1px solid rgba(20,17,13,0.14);">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">01</div>
+          <h3 class="disp" style="font-size: 25px; margin-top: 14px;">Score</h3>
+          <p class="body" style="font-size: 15.5px; margin: 12px 0 24px;">
+            Before anything leaves the private side, Cero simulates the exit against the live
+            anonymity set and returns how identifiable the run would be.
+          </p>
+          <div class="mono" style="font-size: 11.5px; color: rgba(20,17,13,0.55); background: rgba(20,17,13,0.05); border-radius: 2px; padding: 10px 12px;">
+            POST /runs/:id/score<br>&rarr; { uniqueness, set_size, window }
+          </div>
+        </div>
+
+        <div style="padding: 30px 40px 8px 40px; border-right: 1px solid rgba(20,17,13,0.14);">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">02</div>
+          <h3 class="disp" style="font-size: 25px; margin-top: 14px;">Route</h3>
+          <p class="body" style="font-size: 15.5px; margin: 12px 0 24px;">
+            Policy picks the quiet path &mdash; split the run into tranches, hold it to a dense
+            window, or move the value through a different exit entirely.
+          </p>
+          <div class="mono" style="font-size: 11.5px; color: rgba(20,17,13,0.55); background: rgba(20,17,13,0.05); border-radius: 2px; padding: 10px 12px;">
+            max_uniqueness 25<br>split &le;8 &nbsp;&middot;&nbsp; window 09:00&ndash;17:00
+          </div>
+        </div>
+
+        <div style="padding: 30px 0 8px 40px;">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">03</div>
+          <h3 class="disp" style="font-size: 25px; margin-top: 14px;">Disclose</h3>
+          <p class="body" style="font-size: 15.5px; margin: 12px 0 24px;">
+            After settlement each reviewer opens a viewing key scoped to their slice &mdash; this
+            week&rsquo;s run, not the network.
+          </p>
+          <div class="mono" style="font-size: 11.5px; color: rgba(20,17,13,0.55); background: rgba(20,17,13,0.05); border-radius: 2px; padding: 10px 12px;">
+            key controller@acme<br>scope org.runs &nbsp;&middot;&nbsp; ttl 90d
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 03 · SCOPED DISCLOSURE ===================== -->
+  <section id="disclosure" style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="padding: 92px 0 100px;">
+
+      <div style="display: grid; grid-template-columns: 520px 1fr; gap: 90px; align-items: end;">
+        <div>
+          <div class="lbl" style="color: rgba(20,17,13,0.40);">03 &nbsp;&mdash;&nbsp; Scoped disclosure</div>
+          <h2 class="disp" style="font-size: 40px; margin-top: 22px;">Three people open the same run. None of them see the same page.</h2>
+        </div>
+        <p class="body" style="font-size: 16.5px; margin: 0 0 6px; max-width: 460px;">
+          A viewing key is not an explorer link. It resolves one scope &mdash; a period, a program,
+          a flagged payment &mdash; and everything outside it is not decrypted, not fetched, not
+          there.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 52px;">
+
+        <!-- CONTROLLER -->
+        <div style="background: #16181A; border-radius: 3px; padding: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10.5px; color: #F2EEE6;">Controller</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">org.runs</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; padding: 16px 0 18px;">
+            <div><div class="cell-lbl">Run</div><div class="cell-val">2026-W35</div></div>
+            <div><div class="cell-lbl">Period</div><div class="cell-val">24&ndash;30 Aug</div></div>
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">41</div></div>
+            <div><div class="cell-lbl">Total</div><div class="cell-val">184,200</div></div>
+            <div><div class="cell-lbl">Counterparty</div><div class="cell-val">17 vendors</div></div>
+            <div><div class="cell-lbl">Exit route</div><div class="cell-val">B &middot; 6 tranches</div></div>
+            <div><div class="cell-lbl">Policy flag</div><div class="cell-val">0 breaches</div></div>
+            <div><div class="cell-lbl">Approver</div><div class="cell-val">j.okafor</div></div>
+          </div>
+          <div class="mono" style="font-size: 10.5px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 13px;">
+            key controller@ &middot; ttl 90d
+          </div>
+        </div>
+
+        <!-- INVESTIGATOR -->
+        <div style="background: #16181A; border-radius: 3px; padding: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10.5px; color: #F2EEE6;">Investigator</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">payment#17</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; padding: 16px 0 18px;">
+            <div><div class="cell-lbl">Run</div><div class="cell-val">2026-W35</div></div>
+            <div><div class="cell-lbl">Period</div><div class="cell-val">24&ndash;30 Aug</div></div>
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">1 of 41</div></div>
+            <div><div class="cell-lbl">Total</div><span class="redact" style="width: 72%;"></span></div>
+            <div><div class="cell-lbl">Counterparty</div><div class="cell-val">al1q&hellip;4f8d</div></div>
+            <div><div class="cell-lbl">Exit route</div><div class="cell-val">B &middot; 6 tranches</div></div>
+            <div><div class="cell-lbl">Policy flag</div><div class="cell-val" style="color: #D9793C;">1 &middot; velocity</div></div>
+            <div><div class="cell-lbl">Approver</div><span class="redact" style="width: 58%;"></span></div>
+          </div>
+          <div class="mono" style="font-size: 10.5px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 13px;">
+            key warrant-8841 &middot; ttl 14d
+          </div>
+        </div>
+
+        <!-- DONOR DESK -->
+        <div style="background: #16181A; border-radius: 3px; padding: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10.5px; color: #F2EEE6;">Donor desk</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">program.clinic</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; padding: 16px 0 18px;">
+            <div><div class="cell-lbl">Run</div><div class="cell-val">2026-W35</div></div>
+            <div><div class="cell-lbl">Period</div><div class="cell-val">24&ndash;30 Aug</div></div>
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">12</div></div>
+            <div><div class="cell-lbl">Total</div><div class="cell-val">46,000</div></div>
+            <div><div class="cell-lbl">Counterparty</div><span class="redact" style="width: 80%;"></span></div>
+            <div><div class="cell-lbl">Exit route</div><span class="redact" style="width: 66%;"></span></div>
+            <div><div class="cell-lbl">Policy flag</div><span class="redact" style="width: 50%;"></span></div>
+            <div><div class="cell-lbl">Approver</div><span class="redact" style="width: 58%;"></span></div>
+          </div>
+          <div class="mono" style="font-size: 10.5px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 13px;">
+            key donor.mercy@ &middot; ttl 30d
+          </div>
+        </div>
+
+      </div>
+
+      <div style="border-top: 1px solid rgba(20,17,13,0.14); margin-top: 34px; padding-top: 18px; max-width: 780px;">
+        <span class="body" style="font-size: 15px;">
+          The blanked fields are not hidden by the interface &mdash; they are never decrypted for
+          that key. And none of this is a filtered view of a public record, because there is no
+          public record.
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== WAITLIST ===================== -->
+  <section id="waitlist" style="border-top: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="padding: 96px 0 100px; display: grid; grid-template-columns: 1fr 470px; gap: 90px; align-items: start;">
+      <div>
+        <h2 class="disp" style="font-size: 52px; max-width: 560px;">Your pay-run shouldn&rsquo;t be a signature.</h2>
+      </div>
+      <div style="padding-top: 10px;">
+        <p class="body" style="font-size: 16.5px; margin: 0;">
+          Cero is in private beta with treasury and grant teams running weekly payouts on Aleo.
+          Tell us what you pay out and we&rsquo;ll set up a key.
+        </p>
+        <div style="display: flex; gap: 10px; margin-top: 28px;">
+          <input class="field" style="flex-grow: 1;" type="email" placeholder="you@treasury.co">
+          <button class="btn" type="button">Request a key</button>
+        </div>
+        <div class="lbl" style="color: rgba(20,17,13,0.40); margin-top: 16px;">
+          We reply to every request &nbsp;&middot;&nbsp; No newsletter
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="height: 96px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 9px;">
+        <span class="disp" style="font-size: 20px;">Cero</span>
+        <span style="display: block; width: 18px; height: 8px; background: #14110D; border-radius: 1px;"></span>
+        <span class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.40); margin-left: 10px;">Private dollars on Aleo</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">Docs</a>
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">X</a>
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">[CONTACT EMAIL]</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":3900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { t: 0 };
+  }
+
+  componentDidMount() {
+    var reduce = false;
+    try {
+      reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+    if (reduce) { this.setState({ t: 9 }); return; }
+    var self = this;
+    this.timer = setInterval(function () {
+      self.setState(function (s) { return { t: (s.t + 1) % 12 }; });
+    }, 620);
+  }
+
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+  }
+
+  renderVals() {
+    var t = this.state.t;
+    var PAPER = '#F2EEE6';
+    var QUIET = '#5E9C84';
+    var LOUD  = '#D9793C';
+
+    // anonymity set ticks — fill in while scanning, then recolor as the route is chosen
+    var frac = t < 1 ? 0.28 : (t < 2 ? 0.66 : 1);
+    var n = 72;
+    var ticks = [];
+    for (var i = 0; i < n; i++) {
+      var on = i < Math.round(n * frac);
+      var mine = (i % 9 === 4);
+      var col;
+      if (!on) { col = 'rgba(242,238,230,0.05)'; }
+      else if (mine) { col = (t >= 8 ? QUIET : (t >= 3 ? LOUD : 'rgba(242,238,230,0.55)')); }
+      else { col = 'rgba(242,238,230,0.15)'; }
+      ticks.push({
+        s: 'width: 3px; border-radius: 1px; flex-shrink: 0; height: ' + (mine ? 30 : 18) + 'px;'
+         + ' background: ' + col + '; transition: background 300ms linear;'
+      });
+    }
+
+    var scores = ['––','––','––','87','87','87','61','34','09','09','09','09'];
+    var scoreColor = t < 3 ? 'rgba(242,238,230,0.26)' : (t >= 8 ? QUIET : (t >= 7 ? PAPER : LOUD));
+
+    var phases = [
+      'Scanning exit window','Scanning exit window','Set resolved',
+      'Scoring candidates','Scoring candidates','Scoring candidates',
+      'Routing','Routing',
+      'Routed — quiet path','Routed — quiet path','Routed — quiet path','Routed — quiet path'
+    ];
+    var phaseColor = t >= 8 ? QUIET : (t >= 3 ? LOUD : 'rgba(242,238,230,0.46)');
+
+    var rowBase = 'display: flex; align-items: center; justify-content: space-between;'
+      + ' padding: 11px 13px; border-radius: 2px;'
+      + ' transition: background 300ms linear, border-color 300ms linear;';
+    var idle    = ' border: 1px solid rgba(242,238,230,0.10); background: transparent;';
+    var selLoud = ' border: 1px solid rgba(217,121,60,0.55); background: rgba(217,121,60,0.10);';
+    var selQuiet= ' border: 1px solid rgba(94,156,132,0.60); background: rgba(94,156,132,0.10);';
+
+    var aOn = (t >= 3 && t <= 5);
+    var bOn = (t >= 6);
+    var markBase = 'display: block; width: 8px; height: 8px; border-radius: 1px; flex-shrink: 0; transition: background 300ms linear;';
+    var numBase = 'font-size: 13px; transition: color 300ms linear;';
+
+    return {
+      ticks: ticks,
+      setLine: t < 2 ? '… resolving exits in window' : '1,284 exits in window · 41 ours',
+      score: scores[t],
+      scoreStyle: 'font-size: 46px; line-height: 1; letter-spacing: -0.035em; margin-top: 7px;'
+        + ' color: ' + scoreColor + '; transition: color 300ms linear;',
+      phaseLabel: phases[t],
+      phaseStyle: 'font-size: 10.5px; color: ' + phaseColor + '; transition: color 300ms linear;',
+      a: {
+        row: rowBase + (aOn ? selLoud : idle),
+        mark: markBase + ' background: ' + (aOn ? LOUD : 'rgba(242,238,230,0.22)') + ';',
+        num: numBase + ' color: ' + (aOn ? LOUD : 'rgba(242,238,230,0.46)') + ';'
+      },
+      b: {
+        row: rowBase + (bOn ? selQuiet : idle),
+        mark: markBase + ' background: ' + (bOn ? QUIET : 'rgba(242,238,230,0.22)') + ';',
+        num: numBase + ' color: ' + (bOn ? QUIET : 'rgba(242,238,230,0.46)') + ';'
+      },
+      verdictText: 'Routed · Exit B · 6 tranches held to 17:00 · uniqueness 09',
+      verdictStyle: 'font-size: 11.5px; margin-top: 18px; padding-top: 15px;'
+        + ' border-top: 1px solid rgba(242,238,230,0.12); color: ' + QUIET + ';'
+        + ' opacity: ' + (t >= 8 ? '1' : '0') + '; transition: opacity 340ms ease;'
+    };
+  }
+}
+</script>
+</body>
+</html>

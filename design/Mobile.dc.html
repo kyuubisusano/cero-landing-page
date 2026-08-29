@@ -1,0 +1,342 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #F2EEE6;
+      color: #14110D;
+      font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #14110D; text-decoration: none; }
+    a:hover { color: #B4531E; }
+    .wrap { padding: 0 20px; }
+    .disp {
+      font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+      font-weight: 400; letter-spacing: -0.014em; line-height: 1.08; margin: 0;
+      text-wrap: pretty;
+    }
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums; font-feature-settings: "zero";
+    }
+    .lbl {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.4;
+    }
+    .body { color: rgba(20,17,13,0.66); text-wrap: pretty; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 48px; padding: 0 22px; background: #14110D; color: #F2EEE6;
+      font-size: 15px; font-weight: 500; border-radius: 2px; border: 0; cursor: pointer;
+    }
+    .btn:hover { background: #362E26; color: #F2EEE6; }
+    .field {
+      height: 48px; padding: 0 14px; background: #FAF8F4;
+      border: 1px solid rgba(20,17,13,0.22); border-radius: 2px;
+      color: #14110D; font-size: 15px; width: 100%;
+      font-family: "Public Sans", system-ui, sans-serif; outline: none;
+    }
+    .field::placeholder { color: rgba(20,17,13,0.35); }
+    .cell-lbl {
+      font-family: "IBM Plex Mono", monospace; font-size: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,238,230,0.46);
+    }
+    .cell-val {
+      font-family: "IBM Plex Mono", monospace; font-size: 13px;
+      font-variant-numeric: tabular-nums; color: rgba(242,238,230,0.90); margin-top: 5px;
+    }
+    .redact { display: block; height: 14px; border-radius: 1px; background: #0A0B0C; margin-top: 6px; }
+    .step-mono {
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+      color: rgba(20,17,13,0.55); background: rgba(20,17,13,0.05);
+      border-radius: 2px; padding: 10px 12px; line-height: 1.7;
+    }
+  </style>
+</helmet>
+
+<div style="background: #F2EEE6;">
+
+  <!-- NAV -->
+  <header style="border-bottom: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 66px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="disp" style="font-size: 23px; letter-spacing: -0.02em;">Cero</span>
+        <span style="display: block; width: 20px; height: 9px; background: #14110D; border-radius: 1px;"></span>
+      </div>
+      <a class="btn" style="height: 44px; padding: 0 16px; font-size: 13.5px;" href="#waitlist">Request a key</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="wrap" style="padding: 44px 20px 48px;">
+    <div class="lbl" style="color: rgba(20,17,13,0.40);">Private dollars on Aleo</div>
+    <h1 class="disp" style="font-size: 38px; margin-top: 20px;">The middle is private. The ends are not.</h1>
+    <p class="body" style="font-size: 16.5px; margin: 22px 0 0;">
+      USDCx already hides the body of a payment. Cero handles the ends &mdash; scoring how much a
+      pay-run gives away at mint, burn and bridge exit, routing the quiet path, then opening only
+      the slice each reviewer is cleared for.
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 26px;">
+      <input class="field" type="email" placeholder="you@treasury.co">
+      <button class="btn" type="button" style="width: 100%;">Request a key</button>
+    </div>
+    <div class="lbl" style="color: rgba(20,17,13,0.40); margin-top: 16px;">
+      Private beta &middot; Aleo mainnet &middot; Nothing on an explorer
+    </div>
+
+    <!-- WIDGET (routed end state) -->
+    <div style="background: #16181A; border-radius: 3px; padding: 18px; margin-top: 32px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+        <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.92);">Pay-run 2026-W35</span>
+        <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">Example</span>
+      </div>
+
+      <div style="display: flex; gap: 22px; padding: 15px 0 18px;">
+        <div><div class="cell-lbl">Payments</div><div class="cell-val" style="font-size: 15px;">41</div></div>
+        <div><div class="cell-lbl">Value</div><div class="cell-val" style="font-size: 15px;">184,200</div></div>
+        <div><div class="cell-lbl">Window</div><div class="cell-val" style="font-size: 15px;">09&ndash;17</div></div>
+      </div>
+
+      <div class="cell-lbl">Anonymity set at exit window</div>
+      <div style="position: relative; height: 30px; margin-top: 10px;">
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: repeating-linear-gradient(90deg, rgba(242,238,230,0.15) 0 3px, transparent 3px 7px);"></div>
+        <div style="position: absolute; left: 4px; right: 0; bottom: 0; height: 30px; background: repeating-linear-gradient(90deg, #5E9C84 0 3px, transparent 3px 63px);"></div>
+      </div>
+      <div class="mono" style="font-size: 10.5px; color: rgba(242,238,230,0.50); margin-top: 8px;">1,284 exits in window &middot; 41 ours</div>
+
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(242,238,230,0.12);">
+        <div>
+          <div class="cell-lbl">Exit uniqueness</div>
+          <div class="mono" style="font-size: 40px; line-height: 1; letter-spacing: -0.035em; margin-top: 7px; color: #5E9C84;">09</div>
+        </div>
+        <div class="lbl" style="font-size: 10px; color: #5E9C84;">Routed &mdash; quiet path</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 11px 12px; border-radius: 2px; border: 1px solid rgba(242,238,230,0.10);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="display: block; width: 8px; height: 8px; border-radius: 1px; background: rgba(242,238,230,0.22);"></span>
+            <span class="mono" style="font-size: 11.5px; color: rgba(242,238,230,0.70);">Exit A &middot; single burn</span>
+          </div>
+          <span class="mono" style="font-size: 12.5px; color: rgba(242,238,230,0.46);">87</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 11px 12px; border-radius: 2px; border: 1px solid rgba(94,156,132,0.60); background: rgba(94,156,132,0.10);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="display: block; width: 8px; height: 8px; border-radius: 1px; background: #5E9C84;"></span>
+            <span class="mono" style="font-size: 11.5px; color: rgba(242,238,230,0.86);">Exit B &middot; 6 tranches</span>
+          </div>
+          <span class="mono" style="font-size: 12.5px; color: #5E9C84;">09</span>
+        </div>
+      </div>
+
+      <div class="mono" style="font-size: 11px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(242,238,230,0.12); color: #5E9C84;">
+        Routed &middot; Exit B &middot; held to 17:00
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 GAP -->
+  <section style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="padding: 48px 20px 52px;">
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">01 &mdash; The gap</div>
+      <h2 class="disp" style="font-size: 29px; margin-top: 16px;">USDCx hides the middle. The ends still talk.</h2>
+      <p class="body" style="font-size: 15.5px; margin: 18px 0 0;">
+        A shielded transfer between two private accounts reveals nothing. But value has to enter and
+        leave. Every mint, every burn, every bridge exit lands on a public ledger carrying an amount,
+        a timestamp and a destination &mdash; and a pay-run that repeats every Friday is a signature
+        long before anyone touches the cryptography.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 30px;">
+        <div style="border: 1px solid #B4531E; border-radius: 2px; padding: 14px; background: rgba(180,83,30,0.07);">
+          <div class="lbl" style="font-size: 10px; color: #B4531E;">Mint &nbsp;&middot;&nbsp; public</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px;">
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">amount in</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">wallet of record</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">timestamp</span>
+          </div>
+        </div>
+
+        <div style="background: #14110D; border-radius: 2px; height: 58px; display: flex; align-items: center; justify-content: center;">
+          <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.78);">Private transfers &middot; opaque</span>
+        </div>
+
+        <div style="border: 1px solid #B4531E; border-radius: 2px; padding: 14px; background: rgba(180,83,30,0.07);">
+          <div class="lbl" style="font-size: 10px; color: #B4531E;">Burn / bridge exit &nbsp;&middot;&nbsp; public</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px;">
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">amount out</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">settlement time</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">destination shape</span>
+            <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.72);">run cadence</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(20,17,13,0.14); margin-top: 26px; padding-top: 16px;">
+        <span class="body" style="font-size: 14.5px;">
+          Three weeks of the same run and the two ends line up on amount and cadence. That
+          correlation is the leak &mdash; not the transfer in between.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 FLOW -->
+  <section style="border-top: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="padding: 48px 20px 52px;">
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">02 &mdash; The flow</div>
+      <h2 class="disp" style="font-size: 29px; margin-top: 16px;">Cero sits on the flow, not beside it.</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 0; margin-top: 30px;">
+
+        <div style="border-top: 1px solid rgba(20,17,13,0.14); padding: 22px 0;">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">01</div>
+          <h3 class="disp" style="font-size: 23px; margin-top: 10px;">Score</h3>
+          <p class="body" style="font-size: 15px; margin: 10px 0 16px;">
+            Before anything leaves the private side, Cero simulates the exit against the live
+            anonymity set and returns how identifiable the run would be.
+          </p>
+          <div class="step-mono">POST /runs/:id/score<br>&rarr; { uniqueness, set_size, window }</div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(20,17,13,0.14); padding: 22px 0;">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">02</div>
+          <h3 class="disp" style="font-size: 23px; margin-top: 10px;">Route</h3>
+          <p class="body" style="font-size: 15px; margin: 10px 0 16px;">
+            Policy picks the quiet path &mdash; split the run into tranches, hold it to a dense
+            window, or move the value through a different exit entirely.
+          </p>
+          <div class="step-mono">max_uniqueness 25<br>split &le;8 &middot; window 09:00&ndash;17:00</div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(20,17,13,0.14); padding: 22px 0 0;">
+          <div class="mono" style="font-size: 12px; color: rgba(20,17,13,0.40);">03</div>
+          <h3 class="disp" style="font-size: 23px; margin-top: 10px;">Disclose</h3>
+          <p class="body" style="font-size: 15px; margin: 10px 0 16px;">
+            After settlement each reviewer opens a viewing key scoped to their slice &mdash; this
+            week&rsquo;s run, not the network.
+          </p>
+          <div class="step-mono">key controller@acme<br>scope org.runs &middot; ttl 90d</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 DISCLOSURE -->
+  <section style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="padding: 48px 20px 52px;">
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">03 &mdash; Scoped disclosure</div>
+      <h2 class="disp" style="font-size: 29px; margin-top: 16px;">Three people open the same run. None of them see the same page.</h2>
+      <p class="body" style="font-size: 15.5px; margin: 18px 0 0;">
+        A viewing key is not an explorer link. It resolves one scope and everything outside it is
+        not decrypted, not fetched, not there.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 28px;">
+
+        <div style="background: #16181A; border-radius: 3px; padding: 18px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10px; color: #F2EEE6;">Controller</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">org.runs</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 14px; padding: 15px 0 15px;">
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">41</div></div>
+            <div><div class="cell-lbl">Total</div><div class="cell-val">184,200</div></div>
+            <div><div class="cell-lbl">Counterparty</div><div class="cell-val">17 vendors</div></div>
+            <div><div class="cell-lbl">Approver</div><div class="cell-val">j.okafor</div></div>
+          </div>
+          <div class="mono" style="font-size: 10px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 12px;">key controller@ &middot; ttl 90d</div>
+        </div>
+
+        <div style="background: #16181A; border-radius: 3px; padding: 18px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10px; color: #F2EEE6;">Investigator</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">payment#17</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 14px; padding: 15px 0 15px;">
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">1 of 41</div></div>
+            <div><div class="cell-lbl">Total</div><span class="redact" style="width: 72%;"></span></div>
+            <div><div class="cell-lbl">Counterparty</div><div class="cell-val">al1q&hellip;4f8d</div></div>
+            <div><div class="cell-lbl">Approver</div><span class="redact" style="width: 58%;"></span></div>
+          </div>
+          <div class="mono" style="font-size: 10px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 12px;">key warrant-8841 &middot; ttl 14d</div>
+        </div>
+
+        <div style="background: #16181A; border-radius: 3px; padding: 18px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+            <span class="lbl" style="font-size: 10px; color: #F2EEE6;">Donor desk</span>
+            <span class="lbl" style="font-size: 10px; color: rgba(242,238,230,0.44);">program.clinic</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 14px; padding: 15px 0 15px;">
+            <div><div class="cell-lbl">Payments</div><div class="cell-val">12</div></div>
+            <div><div class="cell-lbl">Total</div><div class="cell-val">46,000</div></div>
+            <div><div class="cell-lbl">Counterparty</div><span class="redact" style="width: 80%;"></span></div>
+            <div><div class="cell-lbl">Approver</div><span class="redact" style="width: 58%;"></span></div>
+          </div>
+          <div class="mono" style="font-size: 10px; color: rgba(242,238,230,0.46); border-top: 1px solid rgba(242,238,230,0.12); padding-top: 12px;">key donor.mercy@ &middot; ttl 30d</div>
+        </div>
+
+      </div>
+
+      <div style="border-top: 1px solid rgba(20,17,13,0.14); margin-top: 24px; padding-top: 16px;">
+        <span class="body" style="font-size: 14.5px;">
+          The blanked fields are not hidden by the interface &mdash; they are never decrypted for
+          that key.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section id="waitlist" style="border-top: 1px solid rgba(20,17,13,0.14);">
+    <div class="wrap" style="padding: 52px 20px 56px;">
+      <h2 class="disp" style="font-size: 34px;">Your pay-run shouldn&rsquo;t be a signature.</h2>
+      <p class="body" style="font-size: 15.5px; margin: 18px 0 0;">
+        Cero is in private beta with treasury and grant teams running weekly payouts on Aleo. Tell
+        us what you pay out and we&rsquo;ll set up a key.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px;">
+        <input class="field" type="email" placeholder="you@treasury.co">
+        <button class="btn" type="button" style="width: 100%;">Request a key</button>
+      </div>
+      <div class="lbl" style="color: rgba(20,17,13,0.40); margin-top: 14px;">
+        We reply to every request &middot; No newsletter
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top: 1px solid rgba(20,17,13,0.14); background: #E8E3D9;">
+    <div class="wrap" style="padding: 24px 20px 28px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="disp" style="font-size: 19px;">Cero</span>
+        <span style="display: block; width: 17px; height: 8px; background: #14110D; border-radius: 1px;"></span>
+      </div>
+      <div class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.40); margin-top: 10px;">Private dollars on Aleo</div>
+      <div style="display: flex; gap: 22px; margin-top: 16px;">
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">Docs</a>
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">X</a>
+        <a class="lbl" style="font-size: 10px; color: rgba(20,17,13,0.55);" href="#">[CONTACT EMAIL]</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":390,"height":5100}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

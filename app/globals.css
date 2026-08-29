@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Cero — "remittance advice"
+
+   The page is a multipart carbon form, printed. Colours come off NCR stock
+   rather than off a moodboard: pale carbon green, printer's registration red,
+   press green. Type is industrial — a heavy grotesque for scale, a wide
+   technical mono for anything a machine produced. No serif anywhere.
+
+   ThemeScroll re-declares these same custom properties as motion values while
+   the ground swaps, so every rule below is the paper-mode fallback and what
+   renders before hydration.
+   ========================================================================== */
+
+:root {
+  /* carbon-copy stock */
+  --ground:     #D7DED5;
+  --ground-2:   #CAD2C8;
+  --fg:         #0E110E;
+  --fg-2:       rgba(14, 17, 14, 0.68);
+  --fg-3:       rgba(14, 17, 14, 0.44);
+  --rule:       rgba(14, 17, 14, 0.22);
+  --rule-soft:  rgba(14, 17, 14, 0.10);
+  --pane:       #12150F;
+  --field-bg:   rgba(255, 255, 255, 0.44);
+  --field-rule: rgba(14, 17, 14, 0.34);
+
+  /* the only chroma: registration red for a loud exit, press green for quiet */
+  --loud:       #D2321B;
+  --quiet:      #1F6B4A;
+  --loud-lit:   #FF4A2B;
+  --quiet-lit:  #4FD08C;
+
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+
+  --wrap:       1320px;
+  --pad:        44px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Lenis owns smooth scrolling; native smooth would fight it.
+   `overflow-x: clip` rather than `hidden`: hidden makes the element a scroll
+   container, which stops scroll events reaching window and freezes every
+   scroll-linked value on the page. clip has no such side effect. */
+html { scroll-behavior: auto; overflow-x: clip; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  background: var(--ground);
+  color: var(--fg);
+  font-family: var(--font-body-loaded), "Archivo", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--loud); color: #fff; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+input { font: inherit; }
+
+/* ---------- layout ---------- */
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+
+@media (max-width: 900px) { :root { --pad: 26px; } }
+@media (max-width: 560px) { :root { --pad: 18px; } }
+
+/* ---------- type ----------
+   Display is the grotesque, set as tight and as large as it will go. Mono is
+   the wide technical face and appears ONLY where a machine produced the value:
+   amounts, keys, scores, timestamps, field numbers. */
+
+.disp {
+  font-family: var(--font-display-loaded), "Archivo", ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.mono {
+  font-family: var(--font-mono-loaded), ui-monospace, "SFMono-Regular", monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* form-field label: wide mono, small, set in caps */
+.lbl {
+  font-family: var(--font-mono-loaded), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.copy { color: var(--fg-2); text-wrap: pretty; }
+
+.h-hero    { font-size: clamp(46px, 10.5vw, 168px); }
+.h-section { font-size: clamp(26px, 3.6vw, 50px); }
+.h-step    { font-size: clamp(22px, 2.6vw, 34px); }
+.h-cta     { font-size: clamp(38px, 7vw, 104px); }
+
+.line-mask { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+
+/* ---------- document devices ----------
+   The things that make this a form rather than a website. */
+
+/* tear-off perforation between sections */
+.perf {
+  height: 1px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--rule) 0 7px,
+    transparent 7px 14px
+  );
+}
+
+/* dot leader: LABEL ......................... VALUE */
+.leader {
+  flex: 1 1 auto;
+  align-self: end;
+  height: 1px;
+  margin: 0 10px 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--rule) 0 2px,
+    transparent 2px 6px
+  );
+}
+
+/* printer's crop mark */
+.crop { position: absolute; width: 13px; height: 13px; opacity: 0.5; }
+.crop::before, .crop::after { content: ""; position: absolute; background: var(--fg-3); }
+.crop::before { left: 0; top: 6px; width: 13px; height: 1px; }
+.crop::after { top: 0; left: 6px; width: 1px; height: 13px; }
+
+/* measurement ruler down a section edge */
+.ruler {
+  width: 9px;
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--rule) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+/* ---------- controls ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 52px; padding: 0 26px;
+  background: var(--fg); color: var(--ground);
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border-radius: 0;
+  position: relative; overflow: hidden;
+}
+.btn > * { position: relative; z-index: 1; }
+.btn::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: var(--loud);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 420ms var(--ease);
+}
+.btn:hover::after { transform: scaleX(1); }
+.btn:hover { color: #fff; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 34px; padding: 0 2px;
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--fg-2);
+  position: relative;
+}
+.btn-ghost::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px;
+  background: var(--loud);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 320ms var(--ease);
+}
+.btn-ghost:hover { color: var(--fg); }
+.btn-ghost:hover::after { transform: scaleX(1); }
+
+/* a form field, not a rounded input */
+.field {
+  height: 52px; padding: 0 14px; min-width: 0;
+  background: var(--field-bg);
+  border: 1px solid var(--field-rule);
+  border-radius: 0;
+  color: var(--fg);
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 13px; letter-spacing: -0.02em;
+  outline: none;
+  transition: border-color 200ms var(--ease), background 200ms var(--ease);
+}
+.field::placeholder {
+  color: var(--fg-3); text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.04em;
+}
+.field:focus { border-color: var(--loud); background: rgba(255, 255, 255, 0.62); }
+
+/* ---------- instrument panes ---------- */
+
+.pane { background: var(--pane); border-radius: 0; color: #E8EDE4; }
+.pane-lbl {
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(232, 237, 228, 0.5);
+}
+.pane-val {
+  font-family: var(--font-mono-loaded), monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  font-size: 13px;
+  color: rgba(232, 237, 228, 0.94);
+}
+.pane-rule { border-color: rgba(232, 237, 228, 0.14); }
+
+/* the motif: a field that was never decrypted, not one that is covered */
+.redaction { display: block; background: #000; }
+
+/* a struck stamp */
+.stamp {
+  display: inline-block;
+  border: 2px solid var(--loud);
+  color: var(--loud);
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 9px;
+  transform: rotate(-3deg);
+}
+
+/* ---------- the payment lifecycle grid ----------
+   One column set shared by the lifecycle row, its annotations and the
+   three-week proof underneath, so the alignment rule falls exactly on the
+   left edge of the exit column. */
+
+.lifecycle {
+  display: grid;
+  grid-template-columns: 96px 1fr 132px;
+  gap: 10px;
+}
+.align-line { right: 132px; }
+
+@media (min-width: 1024px) {
+  .lifecycle { grid-template-columns: 240px 1fr 300px; gap: 22px; }
+  .align-line { right: 300px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::after, .btn-ghost::after, .field { transition: none; }
+}

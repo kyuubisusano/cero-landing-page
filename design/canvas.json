@@ -1,0 +1,26 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 3900, "title": "Desktop — full page" },
+    { "file": "HeroDetail.dc.html", "x": 1560, "y": 0, "w": 1000, "h": 720, "title": "Hero — exit-score widget", "is_interactive": true },
+    { "file": "Disclosure.dc.html", "x": 1560, "y": 880, "w": 1280, "h": 760, "title": "Scoped disclosure — role switch", "is_interactive": true },
+    { "file": "System.dc.html", "x": 1560, "y": 1800, "w": 1000, "h": 1040, "title": "System sheet" },
+    { "file": "Mobile.dc.html", "x": 2980, "y": 0, "w": 390, "h": 5100, "title": "Mobile — 390" }
+  ],
+  "annotations": [
+    {
+      "id": "direction",
+      "x": 0,
+      "y": -190,
+      "w": 460,
+      "text": "Ledger, with redactions.\n\nBone paper, ink, hairline rules — a financial document rather than a SaaS page. The product panes are dark instrument surfaces inset into it, so the control room appears inside the document.\n\nOnly two colours carry chroma and both are states: green = quiet path, burnt orange = the fingerprinting one."
+    },
+    {
+      "id": "widget-note",
+      "x": 1560,
+      "y": -190,
+      "w": 460,
+      "text": "Both detail artboards are live — the hero widget loops through scan → score → route, and the disclosure tabs switch role. Click into an artboard to drive it."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

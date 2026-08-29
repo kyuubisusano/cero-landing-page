@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #E8E3D9;
+      color: #14110D;
+      font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #14110D; text-decoration: none; }
+    a:hover { color: #B4531E; }
+    .disp {
+      font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+      font-weight: 400; letter-spacing: -0.014em; line-height: 1.05; margin: 0;
+    }
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums; font-feature-settings: "zero";
+    }
+    .lbl {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.4;
+    }
+    .cell-lbl {
+      font-family: "IBM Plex Mono", monospace; font-size: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,238,230,0.46);
+    }
+    .cell-val {
+      font-family: "IBM Plex Mono", monospace; font-size: 17px;
+      font-variant-numeric: tabular-nums; color: rgba(242,238,230,0.92); margin-top: 9px;
+    }
+  </style>
+</helmet>
+
+<div style="padding: 46px 48px;">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 30px;">
+    <div>
+      <div class="lbl" style="color: rgba(20,17,13,0.40);">03 &nbsp;&mdash;&nbsp; Scoped disclosure</div>
+      <h2 class="disp" style="font-size: 34px; margin-top: 16px; max-width: 620px;">Same run. One key each.</h2>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="display: block; width: 26px; height: 12px; border-radius: 1px; background: #14110D;"></span>
+      <span class="mono" style="font-size: 12px; color: rgba(20,17,13,0.55);">not decrypted for this key</span>
+    </div>
+  </div>
+
+  <!-- role tabs -->
+  <div style="display: flex; gap: 0; border-bottom: 1px solid rgba(20,17,13,0.18); margin-bottom: 26px;">
+    <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="3">
+      <button type="button" onClick="{{tab.pick}}" style="{{tab.style}}">{{tab.name}}</button>
+    </sc-for>
+  </div>
+
+  <!-- pane -->
+  <div style="background: #16181A; border-radius: 3px; padding: 26px 28px 24px;">
+
+    <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid rgba(242,238,230,0.12);">
+      <span class="lbl" style="font-size: 11px; color: #F2EEE6;">{{role.name}}</span>
+      <span class="mono" style="font-size: 11.5px; color: rgba(242,238,230,0.48);">{{role.key}}</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px 34px; padding: 26px 0 28px;">
+      <sc-for list="{{rows}}" as="row" hint-placeholder-count="8">
+        <div>
+          <div class="cell-lbl">{{row.label}}</div>
+          <sc-if value="{{row.shown}}" hint-placeholder-val="{{true}}">
+            <div class="cell-val" style="{{row.valStyle}}">{{row.val}}</div>
+          </sc-if>
+          <sc-if value="{{row.redacted}}" hint-placeholder-val="{{false}}">
+            <span style="{{row.blockStyle}}"></span>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(242,238,230,0.12); padding-top: 16px;">
+      <span class="mono" style="font-size: 11.5px; color: rgba(242,238,230,0.48);">{{role.scope}}</span>
+      <span class="mono" style="font-size: 11.5px; color: rgba(242,238,230,0.48);">{{role.count}}</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(20,17,13,0.14);">
+    <p style="margin: 0; font-size: 15px; color: rgba(20,17,13,0.66);">
+      A viewing key is not an explorer link. It resolves one scope &mdash; a period, a program, a
+      flagged payment &mdash; and every blanked field above is simply never decrypted for it.
+    </p>
+    <p style="margin: 0; font-size: 15px; color: rgba(20,17,13,0.66);">
+      None of this is a filtered view of a public record, because there is no public record. The
+      controller cannot widen their own scope, and neither can we.
+    </p>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1280,"height":760}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { role: 0 };
+  }
+
+  renderVals() {
+    var self = this;
+    var active = this.state.role;
+    var LOUD = '#D9793C';
+
+    var roles = [
+      {
+        name: 'Controller',
+        key: 'key controller@acme · ttl 90d',
+        scope: 'scope org.runs',
+        count: '8 of 8 fields released',
+        vals: ['2026-W35', '24–30 Aug', '41', '184,200 USDCx', '17 vendors', 'B · 6 tranches', '0 breaches', 'j.okafor'],
+        flag: [false, false, false, false, false, false, false, false]
+      },
+      {
+        name: 'Investigator',
+        key: 'key warrant-8841 · ttl 14d',
+        scope: 'scope payment#17',
+        count: '6 of 8 fields released',
+        vals: ['2026-W35', '24–30 Aug', '1 of 41', null, 'al1q…4f8d', 'B · 6 tranches', '1 · velocity', null],
+        flag: [false, false, false, false, false, false, true, false]
+      },
+      {
+        name: 'Donor desk',
+        key: 'key donor.mercy@ · ttl 30d',
+        scope: 'scope program.clinic',
+        count: '4 of 8 fields released',
+        vals: ['2026-W35', '24–30 Aug', '12', '46,000 USDCx', null, null, null, null],
+        flag: [false, false, false, false, false, false, false, false]
+      }
+    ];
+
+    var labels = ['Run', 'Period', 'Payments', 'Total', 'Counterparty', 'Exit route', 'Policy flag', 'Approver'];
+    var widths = ['58%', '72%', '46%', '68%', '84%', '70%', '52%', '60%'];
+
+    var r = roles[active];
+    var rows = [];
+    for (var i = 0; i < labels.length; i++) {
+      var v = r.vals[i];
+      rows.push({
+        label: labels[i],
+        val: v === null ? '' : v,
+        shown: v !== null,
+        redacted: v === null,
+        valStyle: r.flag[i] ? 'color: ' + LOUD + ';' : '',
+        blockStyle: 'display: block; height: 18px; margin-top: 10px; border-radius: 1px;'
+          + ' background: #0A0B0C; width: ' + widths[i] + ';'
+      });
+    }
+
+    var tabBase = 'font-family: "IBM Plex Mono", monospace; font-size: 11.5px;'
+      + ' letter-spacing: 0.13em; text-transform: uppercase;'
+      + ' padding: 0 22px; height: 44px; background: none; border: 0; cursor: pointer;'
+      + ' margin-bottom: -1px; transition: color 160ms ease, border-color 160ms ease;';
+
+    var tabs = roles.map(function (role, i) {
+      return {
+        name: role.name,
+        pick: function () { self.setState({ role: i }); },
+        style: tabBase + (i === active
+          ? ' color: #14110D; border-bottom: 2px solid #14110D;'
+          : ' color: rgba(20,17,13,0.42); border-bottom: 2px solid transparent;')
+      };
+    });
+
+    return { tabs: tabs, rows: rows, role: r };
+  }
+}
+</script>
+</body>
+</html>
