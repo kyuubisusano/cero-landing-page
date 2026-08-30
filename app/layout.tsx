@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Archivo, Martian_Mono } from "next/font/google";
+import { Archivo, Bricolage_Grotesque, Martian_Mono } from "next/font/google";
 import "./globals.css";
 
-// Archivo carries the scale; Martian Mono is the technical face and appears
-// only where a machine produced the value. Deliberately no serif: a serif
-// display is the tell that makes a page read as generically "tasteful".
-const display = Archivo({
+// Bricolage Grotesque carries the scale — a utilitarian grotesque with enough
+// idiosyncrasy in its terminals to read as art-directed rather than defaulted.
+// Archivo stays for text, where neutrality is the job. Martian Mono is the
+// technical face and appears only where a machine produced the value.
+// Deliberately no serif: a serif display is the tell that makes a page read as
+// generically "tasteful".
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display-loaded",
-  axes: ["wdth"],
   display: "swap",
 });
 
@@ -25,9 +27,9 @@ const mono = Martian_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cero — the middle is private, the ends are not",
+  title: "Cero — a control room for private dollars on Aleo",
   description:
-    "USDCx hides the body of a payment. Cero handles the ends: it scores how much a pay-run gives away at mint, burn and bridge exit, routes the quiet path, then opens only the slice each reviewer is cleared for. Private dollars on Aleo.",
+    "The pool is big; the exit is one. Private stablecoins already hide the middle of a payment — they still leak at the door, and still leave finance teams without a desk that can open only their slice of the book. Working paper v0.1.",
 };
 
 export default function RootLayout({

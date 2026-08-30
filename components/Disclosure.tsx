@@ -27,18 +27,18 @@ import { usePinned } from "./usePinned";
    ========================================================================== */
 
 const FIELDS = [
+  "Settlement",
+  "Block",
   "Run",
   "Period",
   "Payments",
   "Total",
   "Counterparty",
-  "Exit route",
-  "Policy flag",
-  "Approver",
+  "Override",
 ] as const;
 
 /** deterministic bar widths, so the redactions don't reflow between renders */
-const BAR_W = ["58%", "72%", "46%", "68%", "84%", "70%", "52%", "60%"];
+const BAR_W = ["66%", "58%", "52%", "70%", "44%", "72%", "86%", "56%"];
 
 type Role = {
   name: string;
@@ -53,53 +53,53 @@ type Role = {
 
 const ROLES: Role[] = [
   {
-    name: "Controller",
-    key: "key controller@acme · ttl 90d",
-    scope: "scope org.runs",
+    name: "Public",
+    key: "no key · explorer, analytics, competitors",
+    scope: "scope chain.public",
+    released: "2 of 8 fields released",
+    values: [
+      "burn_private",
+      "4,912,077",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+    ],
+  },
+  {
+    name: "Owner",
+    key: "key owner@acme · no expiry",
+    scope: "scope org.records",
     released: "8 of 8 fields released",
     values: [
+      "burn_private",
+      "4,912,077",
       "2026-W35",
       "24–30 Aug",
       "41",
       "184,200 USDCx",
       "17 vendors",
-      "B · 6 tranches",
-      "0 breaches",
-      "j.okafor",
+      "0 logged",
     ],
   },
   {
-    name: "Investigator",
+    name: "Mandated",
     key: "key warrant-8841 · ttl 14d",
     scope: "scope payment#17",
-    released: "6 of 8 fields released",
+    released: "7 of 8 fields released",
     values: [
+      "burn_private",
+      "4,912,077",
       "2026-W35",
       "24–30 Aug",
       "1 of 41",
       null,
       "al1q…4f8d",
-      "B · 6 tranches",
-      "1 · velocity",
-      null,
+      "1 · logged",
     ],
-    flag: 6,
-  },
-  {
-    name: "Donor desk",
-    key: "key donor.mercy@ · ttl 30d",
-    scope: "scope program.clinic",
-    released: "4 of 8 fields released",
-    values: [
-      "2026-W35",
-      "24–30 Aug",
-      "12",
-      "46,000 USDCx",
-      null,
-      null,
-      null,
-      null,
-    ],
+    flag: 7,
   },
 ];
 
@@ -165,17 +165,18 @@ export default function Disclosure() {
           >
             <div>
               <div className="lbl" style={{ color: "var(--fg-3)" }}>
-                03 — Scoped disclosure
+                04 — The desk
               </div>
               <h2 className="disp h-section mt-5">
-                One run. Three keys.
+                Three viewers. Three graphs.
               </h2>
             </div>
             <p className="copy text-[15px] sm:text-[16px] max-w-[520px] lg:mb-1">
-              Three people open the same settled run and none of them see the same
-              page. A viewing key is not an explorer link: it resolves one scope — a
-              period, a program, a flagged payment — and everything outside it is
-              not decrypted, not fetched, not there.
+              Institutional privacy is not personal privacy. The street must see
+              nothing in real time. A fund must see its own book. A regulator may
+              have to see a window. Clearing houses already live this rule — people
+              who can see every member’s position are barred from trading it.{" "}
+              <span className="mark">The desk is that rule as software.</span>
             </p>
           </motion.div>
 
@@ -267,10 +268,10 @@ export default function Disclosure() {
             </div>
           </div>
 
-          <p className="copy text-[14.5px] sm:text-[15px] mt-6 max-w-[760px]">
-            The blanked fields are not hidden by the interface — they are never
-            decrypted for that key. And none of this is a filtered view of a public
-            record, because there is no public record.
+          <p className="copy text-[14.5px] sm:text-[15px] mt-6 max-w-[820px]">
+            Cero does not invent visibility the program did not emit — it renders
+            and scopes what the rail already writes. The blanked fields are not
+            hidden by the interface; they are never decrypted for that key.
           </p>
         </div>
       </div>

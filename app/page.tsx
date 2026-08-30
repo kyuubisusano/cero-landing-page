@@ -3,6 +3,8 @@ import Flow from "@/components/Flow";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Leak from "@/components/Leak";
+import Limits from "@/components/Limits";
+import Research from "@/components/Research";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
 import ThemeScroll from "@/components/ThemeScroll";
@@ -12,13 +14,16 @@ export default function Page() {
   return (
     <>
       <SmoothScroll />
+      <div className="grain" aria-hidden />
       <ThemeScroll>
         <Nav />
         <main>
           <Hero />
           <Leak />
-          <Flow />
+          <Research />
           <Disclosure />
+          <Flow />
+          <Limits />
           <Waitlist />
         </main>
         <Footer />

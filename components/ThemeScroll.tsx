@@ -27,35 +27,35 @@ import {
    ========================================================================== */
 
 const PAPER = {
-  ground: "#D7DED5",
-  ground2: "#CAD2C8",
-  fg: "#0E110E",
-  fg2: "rgba(14, 17, 14, 0.68)",
-  fg3: "rgba(14, 17, 14, 0.44)",
-  rule: "rgba(14, 17, 14, 0.22)",
-  ruleSoft: "rgba(14, 17, 14, 0.10)",
-  pane: "#12150F",
-  fieldBg: "rgba(255, 255, 255, 0.44)",
-  fieldRule: "rgba(14, 17, 14, 0.34)",
-  quiet: "#1F6B4A",
-  loud: "#D2321B",
+  ground: "#C7D0C5",
+  ground2: "#B6C0B4",
+  fg: "#0A0C0A",
+  fg2: "rgba(10, 12, 10, 0.70)",
+  fg3: "rgba(10, 12, 10, 0.46)",
+  rule: "rgba(10, 12, 10, 0.24)",
+  ruleSoft: "rgba(10, 12, 10, 0.11)",
+  pane: "#0D0F0D",
+  fieldBg: "rgba(255, 255, 255, 0.5)",
+  fieldRule: "rgba(10, 12, 10, 0.36)",
+  quiet: "#0047FF",
+  loud: "#E4002B",
 };
 
 const DARK = {
-  ground: "#0B0D0B",
-  ground2: "#121510",
-  fg: "#E8EDE4",
-  fg2: "rgba(232, 237, 228, 0.66)",
-  fg3: "rgba(232, 237, 228, 0.46)",
-  rule: "rgba(232, 237, 228, 0.20)",
-  ruleSoft: "rgba(232, 237, 228, 0.10)",
+  ground: "#07090A",
+  ground2: "#0E1113",
+  fg: "#E6EAE5",
+  fg2: "rgba(230, 234, 229, 0.68)",
+  fg3: "rgba(230, 234, 229, 0.48)",
+  rule: "rgba(230, 234, 229, 0.22)",
+  ruleSoft: "rgba(230, 234, 229, 0.11)",
   // in the dark register the pane sits *above* the ground rather than below
   // it — the inset relationship inverts, so panes still read as instruments
-  pane: "#171B14",
-  fieldBg: "rgba(232, 237, 228, 0.07)",
-  fieldRule: "rgba(232, 237, 228, 0.28)",
-  quiet: "#4FD08C",
-  loud: "#FF4A2B",
+  pane: "#14181A",
+  fieldBg: "rgba(230, 234, 229, 0.08)",
+  fieldRule: "rgba(230, 234, 229, 0.3)",
+  quiet: "#6E93FF",
+  loud: "#FF2D55",
 };
 
 /** scroll positions of the four beats, in document px */
@@ -75,18 +75,18 @@ export default function ThemeScroll({ children }: { children: ReactNode }) {
   const remeasured = useMotionValue(0);
 
   const measure = useCallback(() => {
-    const gap = document.getElementById("gap");
+    const door = document.getElementById("door");
     const disclosure = document.getElementById("disclosure");
-    if (!gap || !disclosure) return;
+    if (!door || !disclosure) return;
 
-    const gapTop = gap.getBoundingClientRect().top + window.scrollY;
-    const gapH = gap.offsetHeight;
+    const doorTop = door.getBoundingClientRect().top + window.scrollY;
+    const doorH = door.offsetHeight;
     const discTop = disclosure.getBoundingClientRect().top + window.scrollY;
 
-    // dark rises across the middle of the gap set-piece, where the opaque
+    // dark rises across the middle of the door set-piece, where the opaque
     // transfer completes and value heads for a public exit
-    const darkStart = gapTop + gapH * 0.3;
-    const darkEnd = gapTop + gapH * 0.46;
+    const darkStart = doorTop + doorH * 0.3;
+    const darkEnd = doorTop + doorH * 0.46;
     // and falls again just before disclosure arrives
     const paperStart = discTop - window.innerHeight * 0.78;
     const paperEnd = discTop - window.innerHeight * 0.16;

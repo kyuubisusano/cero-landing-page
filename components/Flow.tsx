@@ -7,22 +7,28 @@ import { IN_VIEW, drawX } from "./motion";
 
 const STEPS = [
   {
-    n: "01",
-    title: "Score",
-    copy: "Before anything leaves the private side, Cero simulates the exit against the live anonymity set and returns how identifiable the run would be.",
-    mono: ["POST /runs/:id/score", "→ { uniqueness, set_size, window }"],
+    n: "Days 0–14",
+    title: "Observe",
+    copy: "Index USDCx public-private boundary events on mainnet and reconstruct a minimal exit table: time, public amount band, destination family. No UI. A CSV and a script.",
+    mono: ["mint_private · burn_private", "convert · freeze · pause"],
   },
   {
-    n: "02",
-    title: "Route",
-    copy: "Policy picks the quiet path — split the run into tranches, hold it to a dense window, or move the value through a different exit entirely.",
-    mono: ["max_uniqueness 25", "split ≤8 · window 09:00–17:00"],
+    n: "Days 14–45",
+    title: "Score and warn",
+    copy: "A CLI in front of burn_private: print estimated set size, block the obvious singleton, offer split and delay. Publish an ugly public page of recent USDCx exit scores.",
+    mono: ["token + amount bucket", "time window + destination reuse"],
   },
   {
-    n: "03",
-    title: "Disclose",
-    copy: "After settlement each reviewer opens a viewing key scoped to their slice — this week’s run, not the network.",
-    mono: ["key controller@acme", "scope org.runs · ttl 90d"],
+    n: "Days 45–90",
+    title: "One desk, one key",
+    copy: "A web pane for a single investigator or payroll operator. Timeline of records they can decrypt, freeze hits, override log, month-end CSV. If no real key holder logs in, stop.",
+    mono: ["scoped timeline · freeze hits", "csv export · key expiry"],
+  },
+  {
+    n: "After pull",
+    title: "Library",
+    copy: "Extract the scorer and the quiet-path builder as a package other Aleo apps import. That is distribution. A second branded desk is not.",
+    mono: ["open scorer", "quiet-path builder"],
   },
 ];
 
@@ -47,12 +53,12 @@ export default function Flow() {
         <RevealGroup>
           <RevealItem>
             <div className="lbl" style={{ color: "var(--fg-3)" }}>
-              02 — The flow
+              05 — What ships first
             </div>
           </RevealItem>
           <RevealItem>
-            <h2 className="disp h-section mt-5 max-w-[720px]">
-              On the flow, not beside it.
+            <h2 className="disp h-section mt-5 max-w-[820px]">
+              Shipping “the platform” is how this dies.
             </h2>
           </RevealItem>
         </RevealGroup>
@@ -64,7 +70,7 @@ export default function Flow() {
             style={{ background: "var(--rule)", scaleX: spine }}
           />
 
-          <div className="grid gap-0 lg:grid-cols-3">
+          <div className="grid gap-0 lg:grid-cols-4">
             {STEPS.map((step, i) => (
               <motion.div
                 key={step.n}
@@ -72,12 +78,12 @@ export default function Flow() {
                 whileInView="show"
                 viewport={IN_VIEW}
                 transition={{ delayChildren: i * 0.12, staggerChildren: 0.07 }}
-                className="relative pt-7 sm:pt-8 pb-2 lg:px-10 lg:first:pl-0 lg:last:pr-0 border-t lg:border-t-0 lg:border-l lg:first:border-l-0"
+                className="relative pt-7 sm:pt-8 pb-2 lg:px-6 lg:first:pl-0 lg:last:pr-0 border-t lg:border-t-0 lg:border-l lg:first:border-l-0"
                 style={{ borderColor: "var(--rule)" }}
               >
                 <motion.div
                   variants={{ hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }}
-                  className="mono text-xs"
+                  className="mono text-[11px] whitespace-nowrap"
                   style={{ color: "var(--fg-3)" }}
                 >
                   {step.n}

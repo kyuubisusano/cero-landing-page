@@ -3,11 +3,13 @@
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { EASE } from "./motion";
+import { CeroMark } from "./SetField";
 
 const LINKS = [
-  ["The gap", "#gap"],
-  ["How it works", "#flow"],
-  ["Disclosure", "#disclosure"],
+  ["Door", "#door"],
+  ["Research", "#research"],
+  ["Desk", "#disclosure"],
+  ["Limits", "#limits"],
 ];
 
 export default function Nav() {
@@ -33,11 +35,7 @@ export default function Nav() {
       >
         <a href="#top" className="flex items-center gap-[9px]" aria-label="Cero, home">
           <span className="disp text-[24px] tracking-[-0.05em]">Cero</span>
-          {/* the wordmark's one flourish: a redaction bar */}
-          <span
-            className="block w-6 h-[10px] rounded-[1px]"
-            style={{ background: "var(--fg)" }}
-          />
+          <CeroMark height={18} />
         </a>
 
         <nav className="flex items-center gap-6 sm:gap-8">

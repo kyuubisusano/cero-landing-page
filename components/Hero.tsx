@@ -5,11 +5,19 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import ExitScore from "./ExitScore";
 import WaitlistForm from "./WaitlistForm";
 import { CropMarks, LeaderRow, Perforation } from "./Marks";
+import SetField from "./SetField";
 import { riseLine, riseSoft, stagger } from "./motion";
 
-/* The statement is the fold. Four short lines set as large as the measure
-   allows, each rising out of its own mask — the page prints itself. */
-const LINES = ["The middle", "is private.", "The ends", "are not."];
+/* The finding from Guo et al. is the whole pitch, so it is the headline:
+   pool size is not exit size. The second line carries the red. */
+const LINES = ["The pool", "is big.", "The exit", "is one."];
+
+/* The paper's own three pillars, in its own words. */
+const PILLARS = [
+  ["01", "The door", "Stop mint and burn from becoming a fingerprint."],
+  ["02", "The desk", "Let only the mandated viewer open a pay-run."],
+  ["03", "The score", "Measure anonymity instead of asserting it."],
+];
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -27,7 +35,7 @@ export default function Hero() {
       <CropMarks />
 
       <motion.div className="wrap" style={{ y, opacity }}>
-        {/* ---------- the form's masthead ---------- */}
+        {/* ---------- the paper's masthead ---------- */}
         <motion.div
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -36,19 +44,21 @@ export default function Hero() {
           style={{ borderColor: "var(--rule)" }}
         >
           <span className="lbl" style={{ color: "var(--fg)" }}>
-            Remittance advice
+            Working paper
           </span>
           <span className="lbl" style={{ color: "var(--fg-3)" }}>
-            Form C-17
+            v0.1 · August 2026
           </span>
           <span className="lbl ml-auto" style={{ color: "var(--fg-3)" }}>
-            Private dollars on Aleo
+            Draft for critique · Not a token sale
           </span>
         </motion.div>
 
-        {/* ---------- the statement ---------- */}
+        {/* ---------- the statement ----------
+            Deliberately wider than the wrap and allowed to bleed off the right
+            edge: the only element on the page that refuses the grid. */}
         <motion.h1
-          className="disp h-hero mt-8 sm:mt-10"
+          className="disp h-hero mt-8 sm:mt-10 lg:w-[112%] lg:max-w-none"
           variants={stagger(0.08, 0.25)}
           initial="hidden"
           animate="show"
@@ -58,7 +68,6 @@ export default function Hero() {
               <motion.span
                 variants={riseLine}
                 className="block"
-                // the two lines that name the exposure carry the red
                 style={i >= 2 ? { color: "var(--loud)" } : undefined}
               >
                 {line}
@@ -67,25 +76,52 @@ export default function Hero() {
           ))}
         </motion.h1>
 
+        {/* ---------- the set, as it appears ----------
+            Flat and uniform until the cursor falls on it, at which point the
+            singletons show. The interaction is the argument. */}
+        <motion.div
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mt-10 sm:mt-14 relative"
+        >
+          <div className="flex items-baseline justify-between pb-3">
+            <span className="lbl" style={{ color: "var(--fg-3)" }}>
+              Recent USDCx exits · move the cursor across
+            </span>
+            <span className="lbl hidden sm:block" style={{ color: "var(--loud)" }}>
+              Red = singleton
+            </span>
+          </div>
+          <SetField
+            interactive
+            count={112}
+            height={72}
+            rarity={7}
+            className="w-full"
+            style={{ width: "100%" }}
+          />
+        </motion.div>
+
         {/* ---------- the particulars ---------- */}
-        <div className="grid gap-10 lg:gap-16 mt-12 sm:mt-16 lg:grid-cols-[1fr_600px] items-start pb-16 sm:pb-20">
+        <div className="grid gap-10 lg:gap-16 mt-12 sm:mt-16 lg:grid-cols-[1fr_600px] items-start pb-14 relative z-10">
           <motion.div
             variants={stagger(0.08, 0.7)}
             initial="hidden"
             animate="show"
-            className="max-w-[520px]"
+            className="max-w-[560px]"
           >
             <motion.p variants={riseSoft} className="copy text-[16.5px] sm:text-[18px] m-0">
-              USDCx already hides the body of a payment. Cero handles the ends —
-              scoring how much a pay-run gives away at mint, burn and bridge exit,
-              routing the quiet path, then opening only the slice each reviewer is
-              cleared for.
+              Private stablecoins already hide the middle of a payment. They still
+              leak at the door, and they still leave finance teams without a desk
+              that can open only their slice of the book.{" "}
+              <span className="mark">Cero is that missing layer.</span>
             </motion.p>
 
             <motion.div variants={riseSoft} className="flex flex-col gap-3 mt-9">
-              <LeaderRow label="01 Status" value="Private beta" />
-              <LeaderRow label="02 Network" value="Aleo mainnet" />
-              <LeaderRow label="03 Public record" value="None" tone="var(--loud)" />
+              <LeaderRow label="01 Network" value="Aleo" />
+              <LeaderRow label="02 Dollar" value="USDCx / USAD" />
+              <LeaderRow label="03 Status" value="Under formation" tone="var(--loud)" />
             </motion.div>
 
             <motion.div variants={riseSoft} className="mt-9">
@@ -95,6 +131,30 @@ export default function Hero() {
 
           <ExitScore />
         </div>
+
+        {/* ---------- the three pillars ---------- */}
+        <motion.div
+          variants={stagger(0.09, 0.9)}
+          initial="hidden"
+          animate="show"
+          className="grid sm:grid-cols-3 border-t pb-16 sm:pb-20"
+          style={{ borderColor: "var(--rule)" }}
+        >
+          {PILLARS.map(([n, title, line], i) => (
+            <motion.div
+              key={n}
+              variants={riseSoft}
+              className={`pt-6 sm:pr-8 ${i > 0 ? "sm:pl-8 sm:border-l" : ""}`}
+              style={{ borderColor: "var(--rule)" }}
+            >
+              <span className="mono text-[11px]" style={{ color: "var(--fg-3)" }}>
+                {n}
+              </span>
+              <h2 className="disp text-[22px] sm:text-[26px] mt-2">{title}</h2>
+              <p className="copy text-[14.5px] mt-2 mb-0">{line}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
 
       <Perforation />

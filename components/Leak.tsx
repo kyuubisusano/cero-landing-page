@@ -28,8 +28,8 @@ import { usePinned } from "./usePinned";
    height of this element.
    ========================================================================== */
 
-const MINT_LEAKS = ["amount in", "wallet of record", "timestamp"];
-const EXIT_LEAKS = ["amount out", "settlement time", "destination shape", "run cadence"];
+const MINT_LEAKS = ["amount fingerprint", "time bucket", "token constraint"];
+const EXIT_LEAKS = ["address reuse", "split inversion", "thin set", "destination family"];
 const WEEKS = ["2026-W33", "2026-W34", "2026-W35"];
 
 export default function Leak() {
@@ -84,7 +84,7 @@ export default function Leak() {
   const ghosts = [ghost0, ghost1, ghost2];
 
   return (
-    <section id="gap" ref={outer} className={`relative ${pinned ? "h-[340vh]" : ""}`}>
+    <section id="door" ref={outer} className={`relative ${pinned ? "h-[340vh]" : ""}`}>
 
       <div
         ref={inner}
@@ -98,17 +98,17 @@ export default function Leak() {
           >
             <div>
               <div className="lbl" style={{ color: "var(--fg-3)" }}>
-                01 — The gap
+                01 — The door
               </div>
               <h2 className="disp h-section mt-5 max-w-[620px]">
-                The ends still talk.
+                A record is only as quiet as the last public fact that touched it.
               </h2>
             </div>
             <p className="copy text-[15px] sm:text-[16px] lg:mb-2">
-              USDCx hides the middle: a shielded transfer between two private
-              accounts reveals nothing. But value has to enter and leave — and a
-              pay-run that repeats every Friday is a signature long before anyone
-              touches the cryptography.
+              The pool can be large and the exit can still be a singleton. A
+              $47,250.00 burn following a $47,250.00 mint is a join, however well
+              formed both sides are. Cero treats that as the default failure mode
+              of private dollars, not an edge case.
             </p>
           </motion.div>
 

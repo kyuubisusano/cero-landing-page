@@ -1,3 +1,5 @@
+import { CeroMark } from "./SetField";
+
 export default function Footer() {
   return (
     <footer
@@ -7,12 +9,9 @@ export default function Footer() {
       <div className="wrap py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
         <div className="flex items-center gap-[9px]">
           <span className="disp text-[20px]">Cero</span>
-          <span
-            className="block w-[18px] h-2 rounded-[1px]"
-            style={{ background: "var(--fg)" }}
-          />
+          <CeroMark height={15} count={11} />
           <span className="lbl text-[10px] ml-2" style={{ color: "var(--fg-3)" }}>
-            Private dollars on Aleo
+            Working paper v0.1 · For review, not an offer
           </span>
         </div>
 

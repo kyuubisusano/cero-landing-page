@@ -1,12 +1,17 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Cero — "remittance advice"
+   Cero — "multipart form"
 
-   The page is a multipart carbon form, printed. Colours come off NCR stock
-   rather than off a moodboard: pale carbon green, printer's registration red,
-   press green. Type is industrial — a heavy grotesque for scale, a wide
-   technical mono for anything a machine produced. No serif anywhere.
+   The paper's own structure is a three-part carbon form: the same run, viewed
+   by Public, Owner and Mandated. So the page is that form.
+
+   The palette is deliberately COLD. Warm cream grounds with a terracotta
+   accent are the house style of machine-written landing pages; this uses
+   safety-paper grey, canary NCR stock, a cold red and an electric blue —
+   none of which sit anywhere near that family. Type is industrial: a heavy
+   grotesque for scale, a wide technical mono for machine-produced values.
+   No serif anywhere.
 
    ThemeScroll re-declares these same custom properties as motion values while
    the ground swaps, so every rule below is the paper-mode fallback and what
@@ -14,23 +19,25 @@
    ========================================================================== */
 
 :root {
-  /* carbon-copy stock */
-  --ground:     #D7DED5;
-  --ground-2:   #CAD2C8;
-  --fg:         #0E110E;
-  --fg-2:       rgba(14, 17, 14, 0.68);
-  --fg-3:       rgba(14, 17, 14, 0.44);
-  --rule:       rgba(14, 17, 14, 0.22);
-  --rule-soft:  rgba(14, 17, 14, 0.10);
-  --pane:       #12150F;
-  --field-bg:   rgba(255, 255, 255, 0.44);
-  --field-rule: rgba(14, 17, 14, 0.34);
+  /* safety-paper stock — cold grey-green, no warmth in it at all */
+  --ground:     #C7D0C5;
+  --ground-2:   #B6C0B4;
+  --fg:         #0A0C0A;
+  --fg-2:       rgba(10, 12, 10, 0.70);
+  --fg-3:       rgba(10, 12, 10, 0.46);
+  --rule:       rgba(10, 12, 10, 0.24);
+  --rule-soft:  rgba(10, 12, 10, 0.11);
+  --pane:       #0D0F0D;
+  --field-bg:   rgba(255, 255, 255, 0.5);
+  --field-rule: rgba(10, 12, 10, 0.36);
 
-  /* the only chroma: registration red for a loud exit, press green for quiet */
-  --loud:       #D2321B;
-  --quiet:      #1F6B4A;
-  --loud-lit:   #FF4A2B;
-  --quiet-lit:  #4FD08C;
+  /* two states, both cold. Red is a loud exit or a singleton; blue is the
+     quiet routed path. Canary is the form's own stock, never a state. */
+  --loud:       #E4002B;
+  --quiet:      #0047FF;
+  --loud-lit:   #FF2D55;
+  --quiet-lit:  #6E93FF;
+  --canary:     #FFE600;
 
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -265,4 +272,65 @@ input { font: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .btn::after, .btn-ghost::after, .field { transition: none; }
+}
+
+/* ---------- canary ----------
+   The second sheet of the carbon form. Used as material — a marker block
+   behind a phrase, a copy chip — never as a state colour. */
+
+.mark {
+  background: var(--canary);
+  color: #0A0C0A;
+  padding: 0 0.14em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid currentColor;
+  font-family: var(--font-mono-loaded), monospace;
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 7px;
+}
+
+/* ---------- the set field ----------
+   Two stacked copies of the same field. The lit copy is masked to a soft disc
+   that follows the cursor, so "looking" resolves the true distribution. Moving
+   the pointer writes --mx/--my only; nothing re-renders. */
+
+.set-field { position: relative; color: var(--fg); --mx: 50%; --my: 50%; }
+.set-field__base, .set-field__lit { position: absolute; inset: 0; }
+.set-field__lit { opacity: 0; }
+
+.set-field--live { cursor: crosshair; }
+/* a plain attribute rather than opacity: var(--lit) — custom properties are
+   not interpolated, so the transition on a value read from one is unreliable */
+.set-field--live .set-field__lit {
+  opacity: 0;
+  transition: opacity 420ms var(--ease);
+  -webkit-mask-image: radial-gradient(circle 150px at var(--mx) var(--my), #000 0%, #000 26%, transparent 72%);
+  mask-image: radial-gradient(circle 150px at var(--mx) var(--my), #000 0%, #000 26%, transparent 72%);
+}
+.set-field--live[data-lit="1"] .set-field__lit { opacity: 1; }
+
+/* no cursor to follow — show the field as it truly is */
+@media (hover: none) {
+  .set-field--live .set-field__lit { opacity: 1; -webkit-mask-image: none; mask-image: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .set-field--live .set-field__lit { transition: none; }
+}
+
+/* ---------- printed on something ----------
+   Fixed grain over the whole page. Procedural, so it costs no asset and needs
+   no network. Sits under all content and ignores pointer events. */
+
+.grain {
+  position: fixed; inset: 0; z-index: 1;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
